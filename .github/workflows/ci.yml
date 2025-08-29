@@ -7,7 +7,8 @@ on:
     branches: [ main, dev ]
 
 jobs:
-  build:
+  api: 
+    name: Backend CI
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -19,13 +20,44 @@ jobs:
           node-version: 18
 
       - name: Install dependencies
+        working-directory: apps/api
         run: npm install
 
       - name: Lint
+        working-directory: apps/api
         run: npm run lint
 
       - name: Run tests
+        working-directory: apps/api
         run: npm test
 
       - name: Build
+        working-directory: apps/api
+        run: npm run build
+web:
+    name: Frontend CI
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        working-directory: apps/web
+        run: npm install
+
+      - name: Lint
+        working-directory: apps/web
+        run: npm run lint
+
+      - name: Run tests
+        working-directory: apps/web
+        run: npm test
+
+      - name: Build
+        working-directory: apps/web
         run: npm run build
