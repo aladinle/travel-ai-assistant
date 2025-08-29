@@ -34,7 +34,7 @@ jobs:
       - name: Build
         working-directory: apps/api
         run: npm run build
-web:
+  web:
     name: Frontend CI
     runs-on: ubuntu-latest
     steps:
